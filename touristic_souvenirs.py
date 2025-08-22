@@ -15,30 +15,30 @@ class Product:
         return tabulate(data, headers=["Código", "Nombre", "Categoría", "Precio"],
          tablefmt="fancy_grid")
 
-    def search_by_name(list, target, first = 0, end = None):
+    def search_by_name(product_list, target, first = 0, end = None):
         if end is None:
-            end = len(list) - 1
+            end = len(product_list) - 1
         
         if first > end:
             return "NO SE ENCOTRÓ EL PRODUCTO"
         
         mid = (first + end) // 2
-        if list[mid].name == target:
-            return list[mid]
-        elif list[mid].name > target:
-            return Product.search_by_name(list, target, first, mid -1)
+        if product_list[mid].name == target:
+            return product_list[mid]
+        elif product_list[mid].name > target:
+            return Product.search_by_name(product_list, target, first, mid -1)
         else:
-            return Product.search_by_name(list, target, mid + 1, end)
+            return Product.search_by_name(product_list, target, mid + 1, end)
         
     
-    def get_total_price(list, total_price = 0):
-        if len(list) == 0:
+    def get_total_price(product_list, total_price = 0):
+        if len(product_list) == 0:
             return total_price
         
         product = list[0]
 
         total_price += product.price 
-        return total_price + Product.get_total_price(list[1:])
+        return total_price + Product.get_total_price(product_list[1:])
     
 
     def category_average_price(product_list, category, count = 0, total_price = 0):
