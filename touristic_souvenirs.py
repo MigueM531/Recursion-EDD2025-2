@@ -41,6 +41,31 @@ class Product:
         return total_price + Product.get_total_price(list[1:])
     
 
+    def category_average_price(product_list, category, count = 0, total_price = 0):
+
+        if len(product_list) == 0:
+            if count == 0:
+                return "CATEGORIA NO EXISTENTE"
+            return round(total_price / count)
+        
+        product = product_list[0]
+
+        if product.category != category:
+            return Product.category_average_price(product_list[1:], category, count, total_price)
+
+        else:
+            total_price += product.price
+            count += 1
+            return Product.category_average_price(product_list[1:], category, count, total_price)
+        
+    def sort_price():
+        pass
+
+    def search_price_range():
+        pass
+
+    def recommend_product():
+        pass
 
 #-------------------------------------------------------------------------
 
@@ -69,3 +94,5 @@ print(Product.search_by_name(product_list, "waos"))
 
 print (
 f"costo total: ${Product.get_total_price(product_list)}")
+
+print(Product.category_average_price(product_list, "Accesorios"))
