@@ -35,14 +35,13 @@ class Product:
         if len(product_list) == 0:
             return total_price
         
-        product = list[0]
+        product = product_list[0]
 
         total_price += product.price 
         return total_price + Product.get_total_price(product_list[1:])
     
 
     def category_average_price(product_list, category, count = 0, total_price = 0):
-
         if len(product_list) == 0:
             if count == 0:
                 return "CATEGORIA NO EXISTENTE"
@@ -61,8 +60,18 @@ class Product:
     def sort_price():
         pass
 
-    def search_price_range():
-        pass
+    def search_price_range(product_list, min, max, aux_list = None):
+        if aux_list is None:
+            aux_list = []
+
+        if len(product_list) == 0:
+            if len(aux_list) == 0:
+                return f"No hay productos entre el rango de precio"
+            return aux_list
+        
+        if product_list[0].price >= min and product_list[0].price <= max:
+            aux_list.append(product_list[0])
+        return Product.search_price_range(product_list[1:], min, max, aux_list) 
 
     def recommend_product():
         pass
@@ -82,17 +91,12 @@ product_list = [
     Product("vaso térmico", "Hogar", 25000)
 ]
 
-print("LISTA DE ARTICULOS")
-print(tabulate(
-    [(p.code, p.name, p.category, p.price) for p in product_list],
-    headers=["Código", "Nombre", "Categoría", "Precio"],
-    tablefmt="fancy_grid"
-))
-
-
-print(Product.search_by_name(product_list, "waos"))
-
-print (
-f"costo total: ${Product.get_total_price(product_list)}")
-
-print(Product.category_average_price(product_list, "Accesorios"))
+#print("LISTA DE ARTICULOS")
+#print(tabulate(
+#    [(p.code, p.name, p.category, p.price) for p in product_list],
+#    headers=["Código", "Nombre", "Categoría", "Precio"],
+#    tablefmt="fancy_grid"))
+#products = Product.search_price_range(product_list, 5000, 15000)
+#print(tabulate([(p.code, p.name, p.category, p.price) for p in products],
+#               headers=["Código", "Nombre", "Categoría", "Precio"],
+#                tablefmt="fancy_grid"))
