@@ -49,6 +49,7 @@ def menu():
                     tablefmt="fancy_grid"))
 
         elif option == "#":
+            print("            CHAU")
             break
 
 menu()
