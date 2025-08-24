@@ -60,10 +60,7 @@ class Product:
     def sort_price():
         pass
 
-    def search_price_range(product_list, min, max, aux_list = None):
-        if aux_list is None:
-            aux_list = []
-
+    def search_price_range(product_list, min, max, aux_list = []):
         if len(product_list) == 0:
             if len(aux_list) == 0:
                 return f"No hay productos entre el rango de precio"
@@ -73,8 +70,16 @@ class Product:
             aux_list.append(product_list[0])
         return Product.search_price_range(product_list[1:], min, max, aux_list) 
 
-    def recommend_product():
-        pass
+    def recommend_product(product_list, target, aux_list = [], category = ""):
+        if len(product_list) == 0:
+            return aux_list
+
+        if product_list[0].name == target:
+            category = product_list[0].category
+            return Product.recommend_product(product_list[1:], target, aux_list, category)
+        elif product_list[0].category == category and product_list[0].name != target:
+            aux_list.append(product_list[0])
+        return Product.recommend_product(product_list[1:], target, aux_list, category)
 
 #-------------------------------------------------------------------------
 
@@ -100,3 +105,8 @@ product_list = [
 #print(tabulate([(p.code, p.name, p.category, p.price) for p in products],
 #               headers=["Código", "Nombre", "Categoría", "Precio"],
 #                tablefmt="fancy_grid"))
+
+products = Product.recommend_product(product_list, "camiseta")
+print(tabulate([(p.code, p.name, p.category, p.price) for p in products],
+               headers=["Código", "Nombre", "Categoría", "Precio"],
+                tablefmt="fancy_grid"))
