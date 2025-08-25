@@ -70,16 +70,16 @@ class Product:
             aux_list.append(product_list[0])
         return Product.search_price_range(product_list[1:], min, max, aux_list) 
 
-    def recommend_product(product_list, target, aux_list = [], category = ""):
-        if len(product_list) == 0:
-            return aux_list
 
-        if product_list[0].name == target:
-            category = product_list[0].category
-            return Product.recommend_product(product_list[1:], target, aux_list, category)
-        elif product_list[0].category == category and product_list[0].name != target:
-            aux_list.append(product_list[0])
-        return Product.recommend_product(product_list[1:], target, aux_list, category)
+    def recommend_product(product_list, target, idx = 0, category = ""):
+        if idx == len(product_list):
+            return []
+        current = product_list[idx]
+
+        if current.category == target.category and current != target:
+            return [current] + Product.recommend_product(product_list, target, idx + 1, category)
+        else:
+            return Product.recommend_product(product_list, target, idx + 1, category)
 
 #-------------------------------------------------------------------------
 
@@ -96,17 +96,11 @@ product_list = [
     Product("vaso térmico", "Hogar", 25000)
 ]
 
-#print("LISTA DE ARTICULOS")
-#print(tabulate(
-#    [(p.code, p.name, p.category, p.price) for p in product_list],
-#    headers=["Código", "Nombre", "Categoría", "Precio"],
-#    tablefmt="fancy_grid"))
-#products = Product.search_price_range(product_list, 5000, 15000)
-#print(tabulate([(p.code, p.name, p.category, p.price) for p in products],
-#               headers=["Código", "Nombre", "Categoría", "Precio"],
-#                tablefmt="fancy_grid"))
 
-products = Product.recommend_product(product_list, "camiseta")
+target = Product.search_by_name(product_list, "ruana")
+products = Product.recommend_product(product_list, target)
 print(tabulate([(p.code, p.name, p.category, p.price) for p in products],
                headers=["Código", "Nombre", "Categoría", "Precio"],
                 tablefmt="fancy_grid"))
+
+#print(Product.recommend_product(product_list, ))
