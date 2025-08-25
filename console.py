@@ -38,7 +38,6 @@ def menu():
             print(f"Precio promedio ${Product.category_average_price(product_list, category)}")
 
 
-
         elif option == "5":
             min = int(input("Ingrese le precio mínimo: "))
             max = int(input("Ingrese el precio máximo: "))
@@ -47,6 +46,14 @@ def menu():
             print(tabulate([(p.code, p.name, p.category, p.price) for p in products],
                    headers=["Código", "Nombre", "Categoría", "Precio"],
                     tablefmt="fancy_grid"))
+            
+        elif option == "6":
+            print("PRODUCTOS RECOMENDADOS:")
+            product = input("Buscar similares a: ")
+            products = Product.recommend_product(product_list, product)
+            print(tabulate([(p.code, p.name, p.category, p.price) for p in products],
+               headers=["Código", "Nombre", "Categoría", "Precio"],
+                tablefmt="fancy_grid"))
 
         elif option == "#":
             print("            CHAU")
