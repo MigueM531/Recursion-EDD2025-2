@@ -41,7 +41,7 @@ def menu():
             mini = int(input("Ingrese le precio mínimo: "))
             maxi = int(input("Ingrese el precio máximo: "))
             products = Product.search_price_range(product_list, mini, maxi)
-            print(f"BUSQUEDA EN RANGO: {min} - {max}")
+            print(f"BUSQUEDA EN RANGO: {mini} - {maxi}")
             print(tabulate([(p.code, p.name, p.category, p.price) for p in products],
                    headers=["Código", "Nombre", "Categoría", "Precio"],
                     tablefmt="fancy_grid"))
