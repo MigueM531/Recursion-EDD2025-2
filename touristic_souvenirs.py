@@ -60,15 +60,15 @@ class Product:
     def sort_price():
         pass
 
-    def search_price_range(product_list, min, max, aux_list = []):
+    def search_price_range(product_list, mini, maxi, aux_list = []):
         if len(product_list) == 0:
             if len(aux_list) == 0:
                 return f"No hay productos entre el rango de precio"
             return aux_list
         
-        if product_list[0].price >= min and product_list[0].price <= max:
+        if product_list[0].price >= mini and product_list[0].price <= maxi:
             aux_list.append(product_list[0])
-        return Product.search_price_range(product_list[1:], min, max, aux_list) 
+        return Product.search_price_range(product_list[1:], mini, maxi, aux_list) 
 
 
     def recommend_product(product_list, target, idx = 0, category = ""):
@@ -95,12 +95,3 @@ product_list = [
     Product("sombrero", "Ropa", 15000),
     Product("vaso térmico", "Hogar", 25000)
 ]
-
-
-target = Product.search_by_name(product_list, "ruana")
-products = Product.recommend_product(product_list, target)
-print(tabulate([(p.code, p.name, p.category, p.price) for p in products],
-               headers=["Código", "Nombre", "Categoría", "Precio"],
-                tablefmt="fancy_grid"))
-
-#print(Product.recommend_product(product_list, ))
