@@ -10,9 +10,8 @@ def menu():
     print("|1| - Buscar articulo por nombre")
     print("|2| - Calcular precio total")
     print("|3| - Consultar precio promedio por categoria del producto")
-    print("|4| - Ordenar por precio")
-    print("|5| - Buscar por rango de precio")
-    print("|6| - Recomendaciones de compra")
+    print("|4| - Buscar por rango de precio")
+    print("|5| - Recomendaciones de compra")
     print("|#| - Terminar")
 
     while True:
@@ -38,19 +37,19 @@ def menu():
             print(f"Precio promedio ${Product.category_average_price(product_list, category)}")
 
 
-        elif option == "5":
-            min = int(input("Ingrese le precio mínimo: "))
-            max = int(input("Ingrese el precio máximo: "))
-            products = Product.search_price_range(product_list, min, max)
+        elif option == "4":
+            mini = int(input("Ingrese le precio mínimo: "))
+            maxi = int(input("Ingrese el precio máximo: "))
+            products = Product.search_price_range(product_list, mini, maxi)
             print(f"BUSQUEDA EN RANGO: {min} - {max}")
             print(tabulate([(p.code, p.name, p.category, p.price) for p in products],
                    headers=["Código", "Nombre", "Categoría", "Precio"],
                     tablefmt="fancy_grid"))
             
-        elif option == "6":
+        elif option == "5":
+            target = Product.search_by_name(product_list, input("Buscar similares a: "))
+            products = Product.recommend_product(product_list, target)
             print("PRODUCTOS RECOMENDADOS:")
-            product = input("Buscar similares a: ")
-            products = Product.recommend_product(product_list, product)
             print(tabulate([(p.code, p.name, p.category, p.price) for p in products],
                headers=["Código", "Nombre", "Categoría", "Precio"],
                 tablefmt="fancy_grid"))
@@ -58,5 +57,8 @@ def menu():
         elif option == "#":
             print("            CHAU")
             break
+
+        else:
+            print("ESCRIBA UNA OPCIÓN VALIDA")
 
 menu()
