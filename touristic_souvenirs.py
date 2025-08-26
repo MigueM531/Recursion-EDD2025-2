@@ -86,12 +86,12 @@ class Product:
 product_list = [
     Product("camiseta", "Ropa", 35000),
     Product("escarapela", "Accesorios", 5000),
-    Product("imán", "Decoración", 8000),
+    Product("iman", "Decoración", 8000),
     Product("llavero", "Accesorios", 7000),
     Product("mug", "Hogar", 20000),
-    Product("póster", "Decoración", 12000),
+    Product("poster", "Decoración", 12000),
     Product("pulsera", "Accesorios", 10000),
     Product("ruana", "Ropa", 60000),
     Product("sombrero", "Ropa", 15000),
-    Product("vaso térmico", "Hogar", 25000)
+    Product("vaso termico", "Hogar", 25000)
 ]
